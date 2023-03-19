@@ -118,8 +118,31 @@
   <h3>Why are you interesting about coding ?</h3><br>
   <textarea>
   </textarea><br>
-	  <a href="https://farzizyassine.github.io/demo/"><button type="submit">Save<i class="fa-solid fa-floppy-disk"></i></button></a>
+<a href="#" onclick="saveData()"><button type="button">Save<i class="fa-solid fa-floppy-disk"></i></button></a>
   </div>
-
+<script>
+function saveData() {
+  // Get the values of the input fields and the textarea
+  const name = document.querySelector('input[name="name"]').value;
+  const email = document.querySelector('input[name="email"]').value;
+  const age = document.querySelector('input[name="age"]').value;
+  const birthday = document.querySelector('input[name="birthday"]').value;
+  const gender = document.querySelector('input[name="gender"]:checked').value;
+  const reason = document.querySelector('textarea').value;
+  
+  // Send the data to a PHP script using an AJAX request
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'save_data.php', true);
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    if (xhr.status === 200 && xhr.responseText === 'success') {
+      alert('Data saved successfully!');
+    } else {
+      alert('There was an error while saving the data.');
+    }
+  };
+  xhr.send(`name=${name}&email=${email}&age=${age}&birthday=${birthday}&gender=${gender}&reason=${reason}`);
+}
+</script>
 </body>
 </html>
